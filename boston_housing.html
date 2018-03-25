@@ -12670,7 +12670,7 @@ rkJggg==
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>On visualizing the RM-Prices data we can see that, if we increase the number of Rooms then the Prices of the apartment also tends to increase. Although with few outliers.</p>
-<p>On Visualizing the LSTAT-Prices data, We can say that the lower the LSTAT , Higher is the prices.</p>
+<p>On Visualizing the LSTAT-Prices data, We can say that the lower the LSTAT , Higher is the prices. On the graph we can see that when the LSTAT values are on higher side, then the prices are on lower bounds but as the LSTAT values are decreased, The Price Increases.</p>
 <p>We cannnot conclude any thing just by looking into PTRATIO-Prices graph as we can see that for lower PTRATIO we have process in both Higher and Lower end.</p>
 
 </div>
@@ -12901,7 +12901,9 @@ The reason we can say it as good because the r2_score has come out to be 0.923 i
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> There is a golden rule of machine learning, which is never train the model using the testing data. Doing this will train the model and testing will be 100% accurate but in real sceanrio's the model might not predict the correct data and hence the testing phase will be completly biased.</p>
+<p><strong>Answer: </strong> There is a golden rule of machine learning, which is never train the model using the testing data. Doing this will train the model and testing will be 100% accurate but in real sceanrio's the model might not predict the correct data and hence the testing phase will be completly biased.<br>
+This is the reason that the main set of data should always be divided into atleast 2 sets , atleast 20% of data as testing data and remaining as training data.
+On using K-Fold with Shuffle=True we can take advantage of entire data set as we shuffle the data and actually never use the actual test data.</p>
 
 </div>
 </div>
@@ -13986,12 +13988,8 @@ Think about the pros and cons of adding more training points based on if the tra
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong></p>
-<ul>
-<li>On the basis of the above graphs max_depth = 3 seems to be better pridicting the data as the score is constantly greater than 0.6 and after 350 training points , the testing score and traing score seems to meet at some point.</li>
-<li>If we increase the training points ,then testing point will meet at some point with the training points but we need to make sure that we are not training our model with more than 80% for the total data available as this will lead to biased testing, to summarize It won't matter much.</li>
-<li>To explain a bit more, We can clearly see in the above diagram that the max_depth = 1 (training score) causes underfit as the model is over simplified and when the the testing is done R^2 score comes very less due to which the model remains unacceptable. But as we increase the max_depth we can see that the R^2 score gets better and the differnce between R^2 Score for Training Score and Testing Score reduces and at the end max_depth causes Overfit as the model tries to fit all the data in the polynomial Equation of high degree as the result the Testing Score is unable to fit all the data causing High Variance.</li>
-</ul>
+<p><strong>Answer: </strong> 
+max_depth = 3 seems to be the best fit among all. On the intial phases (Training points less than 50) we can see that the R^2 score for training score is 1 and testing score is 0. But as we increase the training points there is huge change in the score of testing set. Till reaching the 300 training set the score gradually increases and at around 350 the score reaches its maximum value of 0.8 and keeps moving in the same way. so we can say that before 300 if we add more training points then there is a significant change in the score but after 300 there is no significant change so we can say that adding more data point beyond 300 will not have any impact on the model.</p>
 
 </div>
 </div>
@@ -14538,8 +14536,8 @@ Cj0REYkYCj0REYkYCj0REYkYCj0REYkY/x+tK2Jkm4H8cgAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>*<em>Answer: </em>Grid Search is a techinque of identification of the best model for the training. First the model is trained using the training data, then the F1-Score is calculated using the cross-validation data. Now on basis of the F1-Score the model is selected. This search technique is called as 'grid' because during identification phase a grid is formed containing different Hyer-parameters and on basis of these Hyper-Parameter the final model is selected.
-Example in SVM training diferent pairs of kernel and C is filled in the grid and F1-Score is caluclated to pick the best performing model.</p>
+<p><strong>Answer: </strong>Grid Search is a techinque of identification of the best model for the training. First the model is trained using the training data, then the F1-Score/R^2 is calculated using the cross-validation data. Now on basis of the F1-Score/R^2 the model is selected. This search technique is called as 'grid' because during identification phase a grid is formed containing different Hyer-parameters and on basis of these Hyper-Parameter the final model is selected.
+Example in SVM training diferent pairs of kernel and C is filled in the grid and F1-Score/R^2 is caluclated to pick the best performing model.</p>
 
 </div>
 </div>
@@ -14566,9 +14564,10 @@ Example in SVM training diferent pairs of kernel and C is filled in the grid and
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ul>
-<li>In the usual method, We have to keep certain percentage of data as testing data (minimum of 20%). Although we might want to train or model using all the data available for better pridictions. To handle this sceanrio K-Fold was introduced.
-Under this techinque the data is shuffled and data is split in K - 1 Data sets(K-Fold).</li>
-<li>This techique is really useful in grid search as we need not seperate the testing data aswell as cros-validation data. The data can simply be shuffled and split into K-Folds and can be used as per the need.</li>
+<li><p>In K-Fold cross-validation Technique, We divide the data into k-buckets for the training and testing phase. The entire data set is divident inrto K equal buckets and then our model is trained using the K-1 buckets and 1 bucket for testing the model. This process is repeated K times to find the optimal performance by taking the averge score on the K trainings. This techinque works great when we don't wnat the seperate out the data as testing data and we indeed use it by shuffling the data.</p>
+</li>
+<li><p>Without K-Fold cross-validatation set, Grid search will try to fit the data into the model and will find the multiple optimal hyperparameter but in the real scenario , decisions made without cross-validation model will perform poorly as it will have high variance.</p>
+</li>
 </ul>
 
 </div>
